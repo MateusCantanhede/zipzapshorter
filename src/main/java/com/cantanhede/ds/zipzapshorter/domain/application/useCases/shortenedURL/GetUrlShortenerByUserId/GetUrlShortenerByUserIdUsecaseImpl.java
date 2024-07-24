@@ -21,6 +21,7 @@ public class GetUrlShortenerByUserIdUsecaseImpl implements GetUrlShortenerByUser
     @Override
     public List<ShortenedURL> execute(long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        user.setCreatedUrls(shortenedURLRepository.findByUserId(userId));
         return user.getCreatedUrls();
     }
 }

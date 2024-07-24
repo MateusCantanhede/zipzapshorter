@@ -34,13 +34,21 @@ public class ShortenedURLRepositoryImpl implements ShortenedURLRepository {
     }
 
     @Override
-    public Optional<ShortenedURL> findById(Long id) {
+    public Optional<ShortenedURL> findById(long id) {
         return context.findById(id).map(ShortenedURLMapper::mapToDomain);
     }
 
     @Override
     public List<ShortenedURL> findAll() {
         return context.findAll().stream()
+                .map(ShortenedURLMapper::mapToDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ShortenedURL> findByUserId(long userId) {
+        return context.findByUserId(userId)
+                .stream()
                 .map(ShortenedURLMapper::mapToDomain)
                 .collect(Collectors.toList());
     }
