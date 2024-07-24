@@ -13,15 +13,22 @@ public class ShortenedURL {
     private String shortUrl;
     private OffsetDateTime creationDate;
     private OffsetDateTime expirationDate;
-    private long userId;
+    private User user;
 
-    public ShortenedURL(long id, String originalUrl, String shortUrl, OffsetDateTime creationDate, OffsetDateTime expirationDate, long userId) {
+    public ShortenedURL(String originalUrl, String shortUrl, OffsetDateTime creationDate, OffsetDateTime expirationDate, User user) {
+        this.originalUrl = originalUrl;
+        this.shortUrl = shortUrl;
+        this.creationDate = creationDate;
+        this.expirationDate = expirationDate;
+        this.user = user;
+    }
+    public ShortenedURL(long id, String originalUrl, String shortUrl, OffsetDateTime creationDate, OffsetDateTime expirationDate, User user) {
         this.id = id;
         this.originalUrl = originalUrl;
         this.shortUrl = shortUrl;
         this.creationDate = creationDate;
         this.expirationDate = expirationDate;
-        this.userId = userId;
+        this.user = user;
     }
 
     //TODO: adicionar regras de negocio do dominio
