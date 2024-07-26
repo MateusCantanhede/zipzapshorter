@@ -4,12 +4,11 @@ import com.cantanhede.ds.zipzapshorter.domain.application.useCases.shortenedURL.
 
 import java.util.List;
 
-public record UserResponseDTO(
+public record UserWithoutShortenedURLsResponseDTO(
     long id,
     String username,
     String password,
-    String email,
-    List<ShortenedURLResponseDTO> createdUrls
+    String email
 ){
     // add métodos caso precise
 }

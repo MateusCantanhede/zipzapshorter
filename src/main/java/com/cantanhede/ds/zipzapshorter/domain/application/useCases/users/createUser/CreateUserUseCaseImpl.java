@@ -1,30 +1,31 @@
 package com.cantanhede.ds.zipzapshorter.domain.application.useCases.users.createUser;
 
+import com.cantanhede.ds.zipzapshorter.domain.application.useCases.users.shared.UserMessageResponseDTO;
 import com.cantanhede.ds.zipzapshorter.domain.core.entities.User;
 import com.cantanhede.ds.zipzapshorter.domain.core.repositories.UserRepository;
-import com.cantanhede.ds.zipzapshorter.domain.core.usecases.CreateUserUsecase;
+import com.cantanhede.ds.zipzapshorter.domain.core.usecases.CreateUserUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CreateUserUsecaseImpl  implements CreateUserUsecase {
+public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     private final UserRepository userRepository;
 
     @Autowired
-    public CreateUserUsecaseImpl(UserRepository userRepository){
+    public CreateUserUseCaseImpl(UserRepository userRepository){
         this.userRepository = userRepository;
     }
 
     @Override
-    public User execute(CreateUserRequest request) {
-        //add validator caso precise
+    public UserMessageResponseDTO execute(CreateUserRequest request) {
+        //TODO: @author: Mateus Cantanhede @Date: 26/07/2024 @Message: add validator precise
         var user = new User(
                 request.username(),
                 request.password(),
                 request.email()
         );
         this.userRepository.save(user);
-        return user;
+        return new UserMessageResponseDTO("User created successfully");
     }
 }

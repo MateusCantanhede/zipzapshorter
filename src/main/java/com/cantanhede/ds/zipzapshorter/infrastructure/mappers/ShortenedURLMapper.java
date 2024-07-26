@@ -11,11 +11,13 @@ public class ShortenedURLMapper {
         entity.setId(shortenedURL.getId());
         entity.setOriginalUrl(shortenedURL.getOriginalUrl());
         entity.setShortUrl(shortenedURL.getShortUrl());
+        entity.setCreationDate(shortenedURL.getCreationDate());
+        entity.setExpirationDate(shortenedURL.getExpirationDate());
         entity.setUser(UserMapper.mapToEntity(shortenedURL.getUser()));
         return entity;
     }
 
     public static ShortenedURL mapToDomain(ShortenedURLEntity shortenedURLEntity) {
-        return new ShortenedURL(shortenedURLEntity.getOriginalUrl(),shortenedURLEntity.getShortUrl(),shortenedURLEntity.getCreationDate(),shortenedURLEntity.getExpirationDate(),UserMapper.mapToDomain(shortenedURLEntity.getUser()));
+        return new ShortenedURL(shortenedURLEntity.getId(),shortenedURLEntity.getOriginalUrl(),shortenedURLEntity.getShortUrl(),shortenedURLEntity.getCreationDate(),shortenedURLEntity.getExpirationDate(),UserMapper.mapToDomain(shortenedURLEntity.getUser()));
     }
 }

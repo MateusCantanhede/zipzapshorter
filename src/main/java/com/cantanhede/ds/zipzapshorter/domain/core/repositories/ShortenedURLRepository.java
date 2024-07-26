@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ShortenedURLRepository {
     void save(ShortenedURL shortenedURL);
-    Optional<ShortenedURL> findById(long id);
+    Optional<ShortenedURL> findByShortenedURL(String shortenedURL);
     List<ShortenedURL> findAll();
     List<ShortenedURL> findByUserId(long userId);
 }
