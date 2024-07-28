@@ -3,22 +3,22 @@ package com.cantanhede.ds.zipzapshorter.domain.application.useCases.shortenedURL
 import com.cantanhede.ds.zipzapshorter.domain.application.exceptions.ApplicationException;
 import com.cantanhede.ds.zipzapshorter.domain.application.useCases.shortenedURL.shared.ShortenedURLMessageResponseDTO;
 import com.cantanhede.ds.zipzapshorter.domain.core.entities.ShortenedURL;
-import com.cantanhede.ds.zipzapshorter.domain.core.entities.User;
 import com.cantanhede.ds.zipzapshorter.domain.core.repositories.ShortenedURLRepository;
 import com.cantanhede.ds.zipzapshorter.domain.core.repositories.UserRepository;
 import com.cantanhede.ds.zipzapshorter.domain.core.usecases.CreateShortenedURLUseCase;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 
 @Service
-public class CreateShortenedURLUsecaseImpl implements CreateShortenedURLUseCase {
-    @Autowired
-    private UserRepository userRepository;
+public class CreateShortenedURLUseCaseImpl implements CreateShortenedURLUseCase {
+    private final UserRepository userRepository;
+    private final ShortenedURLRepository shortenedURLRepository;
 
-    @Autowired
-    private ShortenedURLRepository shortenedURLRepository;
+    public CreateShortenedURLUseCaseImpl(UserRepository userRepository, ShortenedURLRepository shortenedURLRepository) {
+        this.userRepository = userRepository;
+        this.shortenedURLRepository = shortenedURLRepository;
+    }
 
     public ShortenedURLMessageResponseDTO execute(CreateShortenedURLRequest request) throws ApplicationException {
         var user = userRepository.findById(request.userId()).orElseThrow(() -> new ApplicationException("User not found"));
@@ -30,6 +30,6 @@ public class CreateShortenedURLUsecaseImpl implements CreateShortenedURLUseCase 
 
     private String generateShortUrl(String originalUrl) {
         // Implement your URL shortening logic here
-        return "short.ly/" + originalUrl.hashCode();
+        return String.valueOf(originalUrl.hashCode());
     }
 }
