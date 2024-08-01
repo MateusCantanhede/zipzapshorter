@@ -11,9 +11,10 @@ import java.time.OffsetDateTime;
 @Entity
 public class ShortenedURLEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id; // Use Long instead of long
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String originalUrl;
+    @Column(nullable = false, unique = true)
     private String shortUrl;
     private OffsetDateTime creationDate;
     private OffsetDateTime expirationDate;
