@@ -19,5 +19,4 @@ public class Statistics {
         this.uniqueVisitors = uniqueVisitors;
         this.clicksByDate = clicksByDate;
     }
-
 }
