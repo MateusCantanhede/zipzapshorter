@@ -8,7 +8,7 @@ import java.time.OffsetDateTime;
 @Setter
 @Getter
 public class ShortenedURL {
-    private long id;
+    private Long id;
     private String originalUrl;
     private String shortUrl;
     private OffsetDateTime creationDate;

@@ -3,9 +3,10 @@ package com.cantanhede.ds.zipzapshorter.controllers;
 import com.cantanhede.ds.zipzapshorter.domain.application.exceptions.ApplicationException;
 import com.cantanhede.ds.zipzapshorter.domain.application.useCases.shortenedURL.CreateShortenedURL.CreateShortenedURLRequest;
 import com.cantanhede.ds.zipzapshorter.domain.application.useCases.shortenedURL.shared.ShortenedURLMessageResponseDTO;
-import com.cantanhede.ds.zipzapshorter.domain.core.entities.URLAccessLog;
+import com.cantanhede.ds.zipzapshorter.domain.application.useCases.statistics.registerClick.RegisterClickRequest;
 import com.cantanhede.ds.zipzapshorter.domain.core.usecases.CreateShortenedURLUseCase;
 import com.cantanhede.ds.zipzapshorter.domain.core.usecases.GetUrlShortenerByShortenedURLUseCase;
+import com.cantanhede.ds.zipzapshorter.domain.core.usecases.RegisterClickUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.time.OffsetDateTime;
 
 @RestController
 @RequestMapping
@@ -21,25 +21,21 @@ import java.time.OffsetDateTime;
 public class URLShortenerController {
 
     private final CreateShortenedURLUseCase createUrlShortenerUseCase;
-    private final GetUrlShortenerByShortenedURLUseCase getUrlShortenerByShortenedURLUseCase;
-
-    public URLShortenerController(CreateShortenedURLUseCase createUrlShortenerUseCase, GetUrlShortenerByShortenedURLUseCase getUrlShortenerByShortenedURLUseCase) {
+    private final RegisterClickUseCase registerClickUseCase;
+    public URLShortenerController(CreateShortenedURLUseCase createUrlShortenerUseCase, RegisterClickUseCase registerClickUseCase) {
         this.createUrlShortenerUseCase = createUrlShortenerUseCase;
-        this.getUrlShortenerByShortenedURLUseCase = getUrlShortenerByShortenedURLUseCase;
+        this.registerClickUseCase = registerClickUseCase;
     }
 
-    @Operation(summary = "Get URLs by user ID", description = "Get all shortened URLs for a specific user")
+    @Operation(summary = "redirect to long url", description = "redirect to long url by short url")
     @GetMapping("/{shortURL}")
     public ResponseEntity<?> redirectToLongUrl(@PathVariable String shortURL, HttpServletRequest request) throws ApplicationException {
-        var shortened = getUrlShortenerByShortenedURLUseCase.execute(shortURL);
-        if (shortened == null) {
-            throw new ApplicationException("Short URL not found");
+        String ipAddress = request.getHeader("X-Forwarded-For");
+        if (ipAddress == null || ipAddress.isEmpty()) {
+            ipAddress = request.getRemoteAddr();
         }
-        // Capturar informações do cliente
-        String ipAddress = request.getRemoteAddr();
-        String userAgent = request.getHeader("User-Agent");
-        //TODO: adicionar notificação para mensageria
-        return ResponseEntity.status(302).location(URI.create(shortened.originalUrl())).build();
+        var shortened = registerClickUseCase.execute(new RegisterClickRequest(shortURL,ipAddress));
+        return ResponseEntity.status(302).location(URI.create(shortened.getOriginalUrl())).build();
     }
 
     @Operation(summary = "Create a shortened URL", description = "Create a new shortened URL for a specific user")

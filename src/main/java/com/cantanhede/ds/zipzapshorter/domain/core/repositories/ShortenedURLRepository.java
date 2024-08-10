@@ -9,5 +9,5 @@ public interface ShortenedURLRepository {
     void save(ShortenedURL shortenedURL);
     Optional<ShortenedURL> findByShortenedURL(String shortenedURL);
     List<ShortenedURL> findAll();
-    List<ShortenedURL> findByUserId(long userId);
+    List<ShortenedURL> findByUserId(Long userId);
 }

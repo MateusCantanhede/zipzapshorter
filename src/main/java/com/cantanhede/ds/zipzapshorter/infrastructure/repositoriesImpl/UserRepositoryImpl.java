@@ -29,7 +29,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findById(long id) {
+    public Optional<User> findById(Long id) {
         return dataSource.findById(id).map(UserMapper::mapToDomain);
     }
 

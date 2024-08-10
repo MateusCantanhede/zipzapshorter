@@ -8,15 +8,19 @@ import java.util.Map;
 @Setter
 @Getter
 public class Statistics {
-    private String shortUrlId;
+    private Long Id;
+    private ShortenedURL shortUrl;
     private int totalClicks;
     private int uniqueVisitors;
+    private String ipClient;
     private Map<OffsetDateTime, Long> clicksByDate;
 
-    public Statistics(String shortUrlId, int totalClicks, int uniqueVisitors, Map<OffsetDateTime, Long> clicksByDate) {
-        this.shortUrlId = shortUrlId;
+    public Statistics(Long id, ShortenedURL shortUrl, int totalClicks,int uniqueVisitors, String ipClient, Map<OffsetDateTime, Long> clicksByDate) {
+        this.Id = id;
+        this.shortUrl = shortUrl;
         this.totalClicks = totalClicks;
         this.uniqueVisitors = uniqueVisitors;
+        this.ipClient = ipClient;
         this.clicksByDate = clicksByDate;
     }
 }

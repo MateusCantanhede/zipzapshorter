@@ -12,7 +12,7 @@ import java.time.OffsetDateTime;
 public class ShortenedURLEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String originalUrl;
     @Column(nullable = false, unique = true)
     private String shortUrl;

@@ -1,6 +1,5 @@
 package com.cantanhede.ds.zipzapshorter.infrastructure.entities;
 
-import com.cantanhede.ds.zipzapshorter.domain.core.entities.ShortenedURL;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +24,9 @@ public class StatisticsEntity {
 
     @Column(nullable = false)
     private int uniqueVisitors;
+
+    @Column(nullable = false)
+    private String ipClient;
 
     @ElementCollection
     @CollectionTable(name = "clicks_by_date", joinColumns = @JoinColumn(name = "statistics_id"))

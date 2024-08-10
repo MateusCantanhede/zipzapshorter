@@ -7,14 +7,7 @@ import com.cantanhede.ds.zipzapshorter.infrastructure.entities.UserEntity;
 
 public class ShortenedURLMapper {
     public static ShortenedURLEntity mapToEntity(ShortenedURL shortenedURL) {
-        ShortenedURLEntity entity = new ShortenedURLEntity();
-        entity.setId(shortenedURL.getId());
-        entity.setOriginalUrl(shortenedURL.getOriginalUrl());
-        entity.setShortUrl(shortenedURL.getShortUrl());
-        entity.setCreationDate(shortenedURL.getCreationDate());
-        entity.setExpirationDate(shortenedURL.getExpirationDate());
-        entity.setUser(UserMapper.mapToEntity(shortenedURL.getUser()));
-        return entity;
+        return new ShortenedURLEntity(shortenedURL.getId(),shortenedURL.getOriginalUrl(),shortenedURL.getShortUrl(),shortenedURL.getCreationDate(),shortenedURL.getExpirationDate(),UserMapper.mapToEntity(shortenedURL.getUser()));
     }
 
     public static ShortenedURL mapToDomain(ShortenedURLEntity shortenedURLEntity) {

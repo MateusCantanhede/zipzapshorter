@@ -42,7 +42,7 @@ public class ShortenedURLRepositoryImpl implements ShortenedURLRepository {
     }
 
     @Override
-    public List<ShortenedURL> findByUserId(long userId) {
+    public List<ShortenedURL> findByUserId(Long userId) {
         return dataSource.findByUserId(userId)
                 .stream()
                 .map(ShortenedURLMapper::mapToDomain)
