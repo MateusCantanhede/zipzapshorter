@@ -19,12 +19,6 @@ public class ShortenedURLEntity {
     private OffsetDateTime creationDate;
     private OffsetDateTime expirationDate;
 
-    public ShortenedURLEntity(OffsetDateTime expirationDate, OffsetDateTime creationDate, String shortUrl, String originalUrl) {
-        this.expirationDate = expirationDate;
-        this.creationDate = creationDate;
-        this.shortUrl = shortUrl;
-        this.originalUrl = originalUrl;
-    }
     @ManyToOne
     @JoinColumn(nullable = false)
     private UserEntity user; // Change from userId to UserEntity
