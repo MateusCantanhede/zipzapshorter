@@ -30,6 +30,4 @@ public class ShortenedURL {
         this.expirationDate = expirationDate;
         this.user = user;
     }
-
-    //TODO: adicionar regras de negocio do dominio
 }

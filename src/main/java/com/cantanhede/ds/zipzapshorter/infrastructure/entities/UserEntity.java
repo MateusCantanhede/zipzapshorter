@@ -27,6 +27,4 @@ public class UserEntity {
         this.password = password;
         this.email = email;
     }
-
-    // TODO: add business rules of domain
 }

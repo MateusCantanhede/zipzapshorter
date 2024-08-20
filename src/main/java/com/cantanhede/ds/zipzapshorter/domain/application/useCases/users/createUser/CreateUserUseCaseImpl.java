@@ -19,7 +19,6 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     @Override
     public UserMessageResponseDTO execute(CreateUserRequest request) {
-        //TODO: @author: Mateus Cantanhede @Date: 26/07/2024 @Message: add validator precise
         var user = new User(
                 request.username(),
                 request.password(),
