@@ -26,7 +26,7 @@ public class ShortenedURLEntity {
         this.originalUrl = originalUrl;
     }
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(nullable = false)
     private UserEntity user; // Change from userId to UserEntity
 
     // TODO: adicionar regras de negocio do dominio

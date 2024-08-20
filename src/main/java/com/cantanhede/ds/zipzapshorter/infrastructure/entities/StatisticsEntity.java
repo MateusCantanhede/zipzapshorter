@@ -16,7 +16,6 @@ public class StatisticsEntity {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "shortened_url_id")
     private ShortenedURLEntity shortenedURL;
 
     @Column(nullable = false)
@@ -29,8 +28,5 @@ public class StatisticsEntity {
     private String ipClient;
 
     @ElementCollection
-    @CollectionTable(name = "clicks_by_date", joinColumns = @JoinColumn(name = "statistics_id"))
-    @MapKeyColumn(name = "date")
-    @Column(name = "click_count")
     private Map<OffsetDateTime, Long> clicksByDate;
 }
