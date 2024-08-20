@@ -29,13 +29,13 @@ public class URLShortenerController {
 
     @Operation(summary = "redirect to long url", description = "redirect to long url by short url")
     @GetMapping("/{shortURL}")
-    public ResponseEntity<?> redirectToLongUrl(@PathVariable String shortURL, HttpServletRequest request) throws ApplicationException {
+    public ResponseEntity<Object> redirectToLongUrl(@PathVariable String shortURL, HttpServletRequest request) throws ApplicationException {
         String ipAddress = request.getHeader("X-Forwarded-For");
         if (ipAddress == null || ipAddress.isEmpty()) {
             ipAddress = request.getRemoteAddr();
         }
         var shortened = registerClickUseCase.execute(new RegisterClickRequest(shortURL,ipAddress));
-        return ResponseEntity.status(302).location(URI.create(shortened.getOriginalUrl())).build();
+        return ResponseEntity.status(302).location(URI.create(shortened.originalUrl())).build();
     }
 
     @Operation(summary = "Create a shortened URL", description = "Create a new shortened URL for a specific user")

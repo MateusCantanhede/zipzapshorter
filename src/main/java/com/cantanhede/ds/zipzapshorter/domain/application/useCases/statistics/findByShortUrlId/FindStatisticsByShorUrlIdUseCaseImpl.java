@@ -2,6 +2,7 @@ package com.cantanhede.ds.zipzapshorter.domain.application.useCases.statistics.f
 
 import com.cantanhede.ds.zipzapshorter.domain.application.exceptions.ApplicationException;
 import com.cantanhede.ds.zipzapshorter.domain.application.useCases.statistics.registerClick.RegisterClickRequest;
+import com.cantanhede.ds.zipzapshorter.domain.application.useCases.statistics.shared.StatisticResponseDTO;
 import com.cantanhede.ds.zipzapshorter.domain.core.entities.ShortenedURL;
 import com.cantanhede.ds.zipzapshorter.domain.core.entities.Statistics;
 import com.cantanhede.ds.zipzapshorter.domain.core.repositories.ShortenedURLRepository;
@@ -18,7 +19,7 @@ public class FindStatisticsByShorUrlIdUseCaseImpl implements FindStatisticsBySho
         this.statisticsRepository = statisticsRepository;
         this.shortenedURLRepository = shortenedURLRepository;
     }
-    public Statistics execute(String shortURL) throws ApplicationException {
+    public StatisticResponseDTO execute(String shortURL) throws ApplicationException {
 
         var shortened = shortenedURLRepository.findByShortenedURL(shortURL);
         if (shortened.isEmpty()) {
@@ -29,6 +30,8 @@ public class FindStatisticsByShorUrlIdUseCaseImpl implements FindStatisticsBySho
         if (statisticsOptional.isEmpty()) {
             throw new ApplicationException("Statistic not found");
         }
-        return statisticsOptional.get();
+        Statistics statistics = statisticsOptional.get();
+
+        return new StatisticResponseDTO(statistics.getId(),statistics.getShortUrl(),statistics.getTotalClicks(),statistics.getUniqueVisitors(),statistics.getIpClient(),statistics.getClicksByDate());
     }
 }

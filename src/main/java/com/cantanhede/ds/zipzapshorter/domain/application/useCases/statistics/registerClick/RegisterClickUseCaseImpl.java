@@ -1,6 +1,7 @@
 package com.cantanhede.ds.zipzapshorter.domain.application.useCases.statistics.registerClick;
 
 import com.cantanhede.ds.zipzapshorter.domain.application.exceptions.ApplicationException;
+import com.cantanhede.ds.zipzapshorter.domain.application.useCases.shortenedURL.shared.ShortenedURLResponseDTO;
 import com.cantanhede.ds.zipzapshorter.domain.core.entities.ShortenedURL;
 import com.cantanhede.ds.zipzapshorter.domain.core.entities.Statistics;
 import com.cantanhede.ds.zipzapshorter.domain.core.repositories.ShortenedURLRepository;
@@ -22,7 +23,7 @@ public class RegisterClickUseCaseImpl implements RegisterClickUseCase {
     }
 
     @Transactional
-    public ShortenedURL execute(RegisterClickRequest request) throws ApplicationException {
+    public ShortenedURLResponseDTO execute(RegisterClickRequest request) throws ApplicationException {
 
         var shortened = shortenedURLRepository.findByShortenedURL(request.shortURL());
         if (shortened.isEmpty()) {
@@ -51,6 +52,6 @@ public class RegisterClickUseCaseImpl implements RegisterClickUseCase {
 
         // Salva as mudanças
         statisticsRepository.save(statistics);
-        return shortenedURL;
+        return new ShortenedURLResponseDTO(shortenedURL.getId(),shortenedURL.getOriginalUrl(),shortenedURL.getShortUrl(),shortenedURL.getCreationDate(),shortenedURL.getExpirationDate(),shortenedURL.getUser().getId());
     }
 }

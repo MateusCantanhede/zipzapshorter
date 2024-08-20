@@ -1,8 +1,8 @@
 package com.cantanhede.ds.zipzapshorter.domain.core.usecases;
 
 import com.cantanhede.ds.zipzapshorter.domain.application.exceptions.ApplicationException;
-import com.cantanhede.ds.zipzapshorter.domain.core.entities.Statistics;
+import com.cantanhede.ds.zipzapshorter.domain.application.useCases.statistics.shared.StatisticResponseDTO;
 
 public interface FindStatisticsByShortUrlIdUseCase {
-    Statistics execute(String shortURL) throws ApplicationException;
+    StatisticResponseDTO execute(String shortURL) throws ApplicationException;
 }

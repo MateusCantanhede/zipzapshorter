@@ -4,6 +4,7 @@ import com.cantanhede.ds.zipzapshorter.domain.application.exceptions.Application
 import com.cantanhede.ds.zipzapshorter.domain.application.useCases.shortenedURL.CreateShortenedURL.CreateShortenedURLRequest;
 import com.cantanhede.ds.zipzapshorter.domain.application.useCases.shortenedURL.shared.ShortenedURLMessageResponseDTO;
 import com.cantanhede.ds.zipzapshorter.domain.application.useCases.statistics.registerClick.RegisterClickRequest;
+import com.cantanhede.ds.zipzapshorter.domain.application.useCases.statistics.shared.StatisticResponseDTO;
 import com.cantanhede.ds.zipzapshorter.domain.core.usecases.CreateShortenedURLUseCase;
 import com.cantanhede.ds.zipzapshorter.domain.core.usecases.FindStatisticsByShortUrlIdUseCase;
 import com.cantanhede.ds.zipzapshorter.domain.core.usecases.RegisterClickUseCase;
@@ -27,7 +28,7 @@ public class StatisticsController {
 
     @Operation(summary = "Get Statistics by shortURL", description = "Get statistics for a specific shortURL")
     @GetMapping("/statistics/{shortURL}")
-    public ResponseEntity<?> redirectToLongUrl(@PathVariable String shortURL) throws ApplicationException {
+    public ResponseEntity<StatisticResponseDTO> getStatisticsByShortUrl(@PathVariable String shortURL) throws ApplicationException {
         var statistics = findStatisticsByShortUrlIdUseCase.execute(shortURL);
         return ResponseEntity.ok(statistics);
     }
