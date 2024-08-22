@@ -1,6 +1,8 @@
 services:
   db:
     image: postgres:latest
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -10,12 +12,16 @@ services:
     networks:
       - app-network
   app:
+    depends_on:
+      - db
     build: .
     ports:
       - "5000:5000"
     networks:
       - app-network
   nginx:
+    depends_on:
+      - app
     image: nginx:latest
     ports:
       - "80:80"

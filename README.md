@@ -12,7 +12,7 @@ ZipZapShorter é uma API de encurtamento de URL construída com Spring Boot. Est
 
 - Spring Boot
 - Spring Data JPA
-- H2 Database
+- postgresSQL Database
 - Lombok
 - Swagger (Springdoc OpenAPI)
 
@@ -26,8 +26,8 @@ Certifique-se de que você tem as seguintes dependências no seu `build.gradle`:
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'com.h2database:h2'
-    implementation 'org.springdoc:springdoc-openapi-ui:1.7.0' // Atualize para a versão mais recente
+    implementation 'org.postgresql:postgresql'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
