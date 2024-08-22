@@ -7,7 +7,7 @@ COPY build.gradle settings.gradle /app/
 COPY src /app/src
 
 # Compila o projeto
-RUN gradle build --no-daemon
+RUN gradle build
 
 # Etapa 2: Executar a aplicação
 FROM eclipse-temurin:21-jdk AS runtime
