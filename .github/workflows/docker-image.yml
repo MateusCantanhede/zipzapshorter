@@ -13,6 +13,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Debug - Check variables
+        run: |
+          echo "Username: ${{ secrets.DOCKER_USERNAME }}"
+          echo "Password length: ${#${{ secrets.DOCKER_PASSWORD }}}"
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
