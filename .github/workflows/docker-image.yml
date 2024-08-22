@@ -10,7 +10,7 @@ jobs:
 
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    environment: zip-zap-shotter
     steps:
       - uses: actions/checkout@v4
       - name: Debug - Check variables
