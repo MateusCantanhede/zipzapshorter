@@ -13,10 +13,20 @@ jobs:
     environment: zip-zap-shotter
     steps:
       - uses: actions/checkout@v4
+
       - name: Debug - Check variables
         run: |
-          echo "Username: ${{ secrets.DOCKER_USERNAME }}"
-          echo "Password length: ${#${{ secrets.DOCKER_PASSWORD }}}"
+          if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then
+            echo "DOCKER_USERNAME is empty";
+          else
+            echo "DOCKER_USERNAME is set";
+          fi
+
+          if [ -z "${{ secrets.DOCKER_PASSWORD }}" ]; then
+            echo "DOCKER_PASSWORD is empty";
+          else
+            echo "DOCKER_PASSWORD length: ${#${{ secrets.DOCKER_PASSWORD }}}";
+          fi
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
