@@ -25,10 +25,8 @@ jobs:
         run: |
           docker tag nginx registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
           docker tag app registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/app
-          docker tag db registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/db
           docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
           docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/app
-          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/db
 
       - name: Release to Heroku
         env:
