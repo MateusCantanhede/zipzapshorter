@@ -20,7 +20,7 @@ jobs:
           heroku container:login
 
       - name: Build Docker images
-        run: docker-compose build
+        run: docker compose build
 
       - name: Push to Heroku container registry
         run: |
