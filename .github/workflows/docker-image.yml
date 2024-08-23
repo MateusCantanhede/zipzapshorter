@@ -34,6 +34,8 @@ jobs:
       - name: Build and push Docker images
         run: |
           docker compose build
+          docker tag db registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
+          docker tag app registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
           docker tag nginx registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
           docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
 
