@@ -13,8 +13,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Log in to the Heroku container registry
-        run: docker login --username=_ --password ${{ secrets.HEROKU_API_KEY }} registry.heroku.com
-
+        run: echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
 
       - name: Build Docker images
         run: docker-compose build
