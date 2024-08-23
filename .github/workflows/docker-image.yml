@@ -21,16 +21,12 @@ jobs:
 
       - name: Build Docker images
         run: docker compose build
-
+      - name: List Docker images
+        run: docker images
       - name: Push to Heroku container registry
         run: |
-          docker tag zipzapshorter_db registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/db
           docker tag zipzapshorter_app registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/app
-          docker tag zipzapshorter_nginx registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
-          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/db
           docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/app
-          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
-
       - name: Release to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
