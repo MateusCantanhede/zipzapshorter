@@ -21,14 +21,10 @@ jobs:
       - name: Push to Heroku container registry
         run: |
           docker tag nginx registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
-          docker tag app registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/app
-          docker tag db registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/db
           docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
-          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/app
-          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/db
 
       - name: Release to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
-          heroku container:release web app db --app ${{ secrets.HEROKU_APP_NAME }}
+          heroku container:release web --app ${{ secrets.HEROKU_APP_NAME }}
