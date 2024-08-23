@@ -18,8 +18,7 @@ jobs:
         run: echo ${{ secrets.HEROKU_API_KEY }} | docker login --username=_ --password-stdin registry.heroku.com
 
       - name: Build Docker images
-        run: |
-          docker compose build
+        run: docker-compose build
 
       - name: Push to Heroku container registry
         run: |
